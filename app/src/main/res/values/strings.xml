@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">AutoHosts</string>
+    <string name="get_last_host">获取最新的host</string>
+    <string name="huifu_host">恢复默认的host</string>
+    <string name="read_host">查看当前的host</string>
+    <string name="current_host">当前host</string>
+    <string name="settings">设置</string>
+    <string name="get_root_fail">获取root权限失败</string>
+    <string name="network_error">网络错误或者Host URL设置有误，请检查后重试</string>
+    <string name="host_url">Host URL:</string>
+    <string name="default_url">默认Host URL</string>
+    <string name="button_ok">确定</string>
+    <string name="button_back">返回</string>
+    <string name="about_detail">
+        <![CDATA[
+        AutoHost中获取的Host都是来自
+        <a href="https://github.com/yulei88">yelei88</a>
+        的
+        <a href="https://github.com/yulei88/autohosts">autohosts开源项目</a>
+        \n我只是一个host的搬运工
+        \n在这里特别感谢 <a href="https://github.com/yulei88">yulei88</a>提供的 <a href="https://github.com/yulei88/autohosts">开源autohosts</a>
+        ]]>
+    </string>
+
+    <string name="host_github">
+        <![CDATA[
+        host 开源地址:
+        <a href="https://github.com/yulei88/autohosts">github.com/yulei88/autohosts</a>
+        ]]>
+    </string>
+    <string name="app_github">
+        <![CDATA[
+        AutoHosts 开源地址:
+        <a href="https://github.com/ChinaHuibinWang/autohosts">github.com/ChinaHuibinWang/autohosts</a>
+         ]]>
+    </string>
+
+    <string name="your_mobile_have_no_root">您的手机没有root 将无法修改hsot文件, 请root 后再尝试</string>
+    <string name="huifu_host_tips">恢复host成功</string>
+    <string name="get_last_host_tips">获取host成功</string>
+    <string name="loading">loading...</string>
+    <string name="remount_failed">Remount失败\n文件可能正在被使用，请重启后再次尝试。</string>
+
+</resources>
