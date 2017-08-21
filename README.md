@@ -19,6 +19,7 @@ Host来自于:[yulei88/autohosts](https://github.com/yulei88/autohosts)
 # 用法：
 自行摸索
 
-
+# 感谢：
+代码参考自[AndroidGoogleHost](https://github.com/crianzy/AndroidGoogleHost)
 
 
