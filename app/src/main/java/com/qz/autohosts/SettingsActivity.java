@@ -90,5 +90,4 @@ public class SettingsActivity extends AppCompatActivity {
 	private Context getContext() {
 		return this;
 	}
-
 }

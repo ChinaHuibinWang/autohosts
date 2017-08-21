@@ -206,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
 		});
 	}
 
-
 	private void showProgressDialog() {
 		if (mProgressDialog == null) {
 			mProgressDialog = new ProgressDialog(getContext());
@@ -280,6 +279,4 @@ public class MainActivity extends AppCompatActivity {
 
 		return super.onOptionsItemSelected(item);
 	}
-
-
 }
