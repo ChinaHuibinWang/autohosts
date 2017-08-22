@@ -2,6 +2,7 @@ package com.qz.autohosts.util;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Environment;
 
 import com.qz.autohosts.Constants;
 import com.loopj.android.http.AsyncHttpClient;
@@ -21,6 +22,115 @@ import cz.msebera.android.httpclient.Header;
  */
 public class DownloadUtil {
 	private static final String TAG = "DownloadUtil";
+
+	public static void getLatestVersion(final Context context, final GetLatestVersionListener downloadListener) {
+		AsyncHttpClient mClient = new AsyncHttpClient();
+		String url = "https://github.com/ChinaHuibinWang/autohosts/raw/master/version";
+		mClient.get(context, url, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, final Header[] headers, final byte[] bytes) {
+				AsyncTask.execute(new Runnable() {
+					@Override
+					public void run() {
+						OutputStream os = null;
+						try {
+							long totalLength = 0;
+							for (int i = 0; i < headers.length; i++) {
+								Header header = headers[i];
+								if ("Content-Length".equals(header.getName())) {
+									try {
+										totalLength = Long.parseLong(header.getValue());
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+							}
+							downloadListener.success(new String(bytes));
+						} catch (Exception e) {
+							e.printStackTrace();
+							downloadListener.error();
+						} finally {
+							if (os != null) {
+								try {
+									os.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					}
+				});
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+				downloadListener.error();
+			}
+		}).setTag(url);
+	}
+
+	public static void downloadAPKFile(final Context context, final DownloadListener downloadListener) {
+		AsyncHttpClient mClient = new AsyncHttpClient();
+		String apkURL = "https://github.com/ChinaHuibinWang/autohosts/raw/master/autohosts.apk";
+		mClient.get(context, apkURL, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(int statusCode, final Header[] headers, final byte[] bytes) {
+				AsyncTask.execute(new Runnable() {
+					@Override
+					public void run() {
+						OutputStream os = null;
+						try {
+							long totalLength = 0;
+							for (int i = 0; i < headers.length; i++) {
+								Header header = headers[i];
+								if ("Content-Length".equals(header.getName())) {
+									try {
+										totalLength = Long.parseLong(header.getValue());
+									} catch (Exception e) {
+										e.printStackTrace();
+									}
+								}
+							}
+
+							if (bytes == null || bytes.length < totalLength) {
+								downloadListener.error();
+								return;
+							}
+
+							File saveDir = context.getNoBackupFilesDir();
+							//File saveDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/autohosts/");
+							//File saveDir = new File(Environment.DIRECTORY_DOWNLOADS);
+							if (!saveDir.exists()) {
+								saveDir.mkdirs();
+							}
+
+							File apkFile = new File(saveDir.getAbsolutePath() + File.separator + Constants.DOWNLOAD_APK);
+							os = new FileOutputStream(apkFile);
+							os.write(bytes);
+							os.flush();
+							downloadListener.success(apkFile);
+						} catch (Exception e) {
+							e.printStackTrace();
+							downloadListener.error();
+						} finally {
+							if (os != null) {
+								try {
+									os.close();
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+						}
+					}
+				});
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+				downloadListener.error();
+			}
+		}).setTag(apkURL);
+	}
 
 	public static void downloadHostFile(final Context context, String url, final DownloadListener downloadListener) {
 		AsyncHttpClient mClient = new AsyncHttpClient();
@@ -63,7 +173,11 @@ public class DownloadUtil {
 								is.read(buffer);
 								String AllHost = new String(buffer);
 								int nIndex = AllHost.indexOf("\n# -----AutoHosts Start-----\n");
-								originalHosts = AllHost.substring(0, nIndex);
+								if(nIndex == -1){
+									originalHosts = AllHost;
+								} else {
+									originalHosts = AllHost.substring(0, nIndex);
+								}
 							} catch (Exception e) {
 								e.printStackTrace();
 							} finally {
@@ -111,8 +225,17 @@ public class DownloadUtil {
 
 	public interface DownloadListener {
 		void success(File file);
-
 		void error();
 	}
+
+	public interface GetLatestVersionListener {
+		void success(String version);
+		void error();
+	}
+
+//	public interface DownloadapkListener {
+//		void success(File file);
+//		void error();
+//	}
 
 }
