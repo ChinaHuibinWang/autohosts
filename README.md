@@ -4,6 +4,10 @@
 
 [下载AutoHosts.Apk](https://github.com/ChinaHuibinWang/autohosts/raw/master/autohosts.apk)
 
+![image](https://github.com/ChinaHuibinWang/autohosts/raw/master/QR.png)
+
+扫描二维码直接安装 
+
 # Host来源
 Host来自于:[yulei88/autohosts](https://github.com/yulei88/autohosts)
 
