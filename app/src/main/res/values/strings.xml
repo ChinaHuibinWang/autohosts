@@ -47,10 +47,24 @@
 
     <string name="function_info">What\'s Fresh</string>
     <string name="version_check">Check for Updates</string>
+    <string name="log">Log</string>
     <string name="line"></string>
 
-    <string name="apkdownloaddlg_title">MSG</string>
-    <string name="apkdownloaddlg_info">Found the latest version, are you sure to download it?</string>
-    <string name="dialog_ok">OK</string>
-    <string name="dialog_cancel">Cancel</string>
+    <string name="dlg_title">MSG</string>
+    <string name="dlg_ok">OK</string>
+    <string name="dlg_cancel">Cancel</string>
+
+    <string name="dlg_info_apkdownload">Found the latest version, are you sure to download it?</string>
+    <string name="dlg_info_clearlog">Are you sure clear the log?</string>
+
+    <string name="log_get_host_success_when_reboot">Get the Hosts file successfully when Reboot phone.</string>
+    <string name="log_get_host_success_when_active">Failed to get the Hosts file when reboot phone.</string>
+    <string name="log_get_host_failed_when_reboot">Get the Hosts file failed when Reboot phone.</string>
+    <string name="log_get_host_failed_when_active">Failed to Take the initiative to get the Hosts file.</string>
+    <string name="log_reason_noroot">Reason: The phone has no oots.</string>
+    <string name="log_reason_fileused">Reason: The file is being used.</string>
+    <string name="log_suggest_root">Suggest: Root the phone.</string>
+    <string name="log_suggest_reboot">Suggest: Reboot the phone.</string>
+
+    <string name="log_clear">Clear Log</string>
 </resources>

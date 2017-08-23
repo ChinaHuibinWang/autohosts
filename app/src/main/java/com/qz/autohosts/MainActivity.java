@@ -3,7 +3,6 @@ package com.qz.autohosts;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +17,7 @@ import android.widget.Toast;
 
 import com.qz.autohosts.util.CloseUtil;
 import com.qz.autohosts.util.DownloadUtil;
+import com.qz.autohosts.util.Utils;
 import com.stericson.RootShell.RootShell;
 import com.stericson.RootTools.RootTools;
 
@@ -27,7 +27,7 @@ import java.io.FileWriter;
 public class MainActivity extends AppCompatActivity {
 	private static final String TAG = "MainActivity";
 
-	Button mProxyHostBtn, cleanHostBtn, readHostBtn;
+	Button mProxyHostBtn, cleanHostBtn, readHostBtn, clearLogBtn;
 	TextView tipsView;
 
 	ProgressDialog mProgressDialog;
@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
 	private boolean bRemountSuccess = false;
 	private String hostURL;
 
+	private String newLog = "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,16 +47,18 @@ public class MainActivity extends AppCompatActivity {
 		mProxyHostBtn = (Button) findViewById(R.id.proxy_btn);
 		cleanHostBtn = (Button) findViewById(R.id.clean_host);
 		readHostBtn = (Button) findViewById(R.id.read_host);
+		clearLogBtn = (Button) findViewById(R.id.log);
 		tipsView = (TextView) findViewById(R.id.tips);
 
 		mProxyHostBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-				hostURL = preferences.getString("hostURL", "https://raw.githubusercontent.com/yulei88/autohosts/master/data/hosts");
+				hostURL = Utils.ParamGet(MainActivity.this,"hostURL", "https://raw.githubusercontent.com/yulei88/autohosts/master/data/hosts");
 
 				if (!isMobileRoot) {
 					Toast.makeText(getContext(), R.string.get_root_fail, Toast.LENGTH_SHORT).show();
+					newLog = Utils.formatLog(true, Constants.LOG_GET_HOST_FAILED_WHEN_ACTIVE, Constants.LOG_REASON_NOROOT, Constants.LOG_SUGGEST_Root);
+					Utils.LogModify(getContext(), newLog);
 					return;
 				}
 
@@ -83,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
 								try {
 									bRemountSuccess = RootTools.remount("/system/etc/hosts", "RW");
 									if(!bRemountSuccess){
+										newLog = Utils.formatLog(true, Constants.LOG_GET_HOST_FAILED_WHEN_ACTIVE, Constants.LOG_REASON_FileUsed, Constants.LOG_SUGGEST_Reboot);
+										Utils.LogModify(getContext(), newLog);
 										mHandler.post(new Runnable() {
 											@Override
 											public void run() {
@@ -99,6 +105,8 @@ public class MainActivity extends AppCompatActivity {
 								}
 
 								if(bRemountSuccess){
+									newLog = Utils.formatLog(true, Constants.LOG_GET_HOST_SUCCESS_WHEN_ACTIVE);
+									Utils.LogModify(getContext(), newLog);
 									mHandler.post(new Runnable() {
 										@Override
 										public void run() {
@@ -178,6 +186,14 @@ public class MainActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getContext(), HostDetailActivity.class);
+				startActivity(intent);
+			}
+		});
+
+		clearLogBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(MainActivity.this, LogActivity.class);
 				startActivity(intent);
 			}
 		});

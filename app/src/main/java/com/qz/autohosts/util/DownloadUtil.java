@@ -2,7 +2,6 @@ package com.qz.autohosts.util;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.os.Environment;
 
 import com.qz.autohosts.Constants;
 import com.loopj.android.http.AsyncHttpClient;
@@ -133,6 +132,7 @@ public class DownloadUtil {
 	}
 
 	public static void downloadHostFile(final Context context, String url, final DownloadListener downloadListener) {
+
 		AsyncHttpClient mClient = new AsyncHttpClient();
 		mClient.get(context, url, new AsyncHttpResponseHandler() {
 			@Override

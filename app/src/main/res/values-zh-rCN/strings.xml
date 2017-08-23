@@ -47,10 +47,24 @@
 
     <string name="function_info">功能介绍</string>
     <string name="version_check">检查新版本</string>
+    <string name="log">日志</string>
     <string name="line"></string>
 
-    <string name="apkdownloaddlg_title">消息</string>
-    <string name="apkdownloaddlg_info">发现最新版本，确定要下载吗？</string>
-    <string name="dialog_ok">确定</string>
-    <string name="dialog_cancel">取消</string>
+    <string name="dlg_title">消息</string>
+    <string name="dlg_ok">确定</string>
+    <string name="dlg_cancel">取消</string>
+
+    <string name="dlg_info_apkdownload">发现最新版本，确定要下载吗？</string>
+    <string name="dlg_info_clearlog">确定要清空日志吗？</string>
+
+    <string name="log_get_host_success_when_reboot">重启时取得Hosts文件成功。</string>
+    <string name="log_get_host_success_when_active">主动取得Hosts文件成功。</string>
+    <string name="log_get_host_failed_when_reboot">重启时取得Hosts文件失败。</string>
+    <string name="log_get_host_failed_when_active">主动取得Hosts文件失败。</string>
+    <string name="log_reason_noroot">原因：手机没有Root。</string>
+    <string name="log_reason_fileused">原因：文件正在被使用。</string>
+    <string name="log_suggest_root">建议：Root手机。</string>
+    <string name="log_suggest_reboot">建议：重启手机。</string>
+
+    <string name="log_clear">清空日志</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.qz.autohosts;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -10,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.qz.autohosts.util.Utils;
 
 /**
  * Created by chenzhiyong on 16/4/17.
@@ -38,9 +39,9 @@ public class SettingsActivity extends AppCompatActivity {
 
 		setTitle(R.string.settings);
 
-		SharedPreferences preferences = getSharedPreferences("user", Context.MODE_PRIVATE);
-		String hostURL = preferences.getString("hostURL", "https://raw.githubusercontent.com/yulei88/autohosts/master/data/hosts");
+		String hostURL = Utils.ParamGet(this, "hostURL", "https://raw.githubusercontent.com/yulei88/autohosts/master/data/hosts");
 		mEditText.setText(hostURL);
+
 
 		String aboutText = getString(R.string.about_detail);
 		String hostGithub = getString(R.string.host_github);
@@ -62,20 +63,14 @@ public class SettingsActivity extends AppCompatActivity {
 			@Override
 			public void onClick(View v) {
 				mEditText.setText("https://raw.githubusercontent.com/yulei88/autohosts/master/data/hosts");
-				SharedPreferences preferences = getSharedPreferences("user",Context.MODE_PRIVATE);
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putString("hostURL", mEditText.getText().toString());
-				editor.commit();
+				Utils.ParamSet(SettingsActivity.this, "hostURL", mEditText.getText().toString());
 			}
 		});
 
 		mButtonOK.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				SharedPreferences preferences = getSharedPreferences("user",Context.MODE_PRIVATE);
-				SharedPreferences.Editor editor = preferences.edit();
-				editor.putString("hostURL", mEditText.getText().toString());
-				editor.commit();
+				Utils.ParamSet(SettingsActivity.this, "hostURL", mEditText.getText().toString());
 			}
 		});
 

@@ -38,10 +38,10 @@
             android:text="@string/function_info" />
 
         <TextView
-            android:id="@+id/line"
+            android:id="@+id/line1"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:background="@color/background"
+            android:background="@color/line"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:text="@string/line" />
@@ -54,5 +54,23 @@
             android:background="@drawable/selector_text_press_color"
             android:padding="15dp"
             android:text="@string/version_check" />
+
+        <TextView
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/line"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:text="@string/line" />
+
+        <TextView
+            android:id="@+id/log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/selector_text_press_color"
+            android:padding="15dp"
+            android:text="@string/log" />
     </LinearLayout>
 </LinearLayout>

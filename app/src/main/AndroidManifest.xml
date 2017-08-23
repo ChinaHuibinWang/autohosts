@@ -28,6 +28,7 @@
         <activity android:name="com.qz.autohosts.HostDetailActivity"></activity>
         <activity android:name="com.qz.autohosts.SettingsActivity"></activity>
         <activity android:name="com.qz.autohosts.AboutActivity"></activity>
+        <activity android:name="com.qz.autohosts.LogActivity"></activity>
         <receiver android:name="com.qz.autohosts.BootBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

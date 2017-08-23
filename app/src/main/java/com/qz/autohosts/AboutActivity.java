@@ -8,17 +8,13 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.qz.autohosts.util.AutoInstall;
 import com.qz.autohosts.util.DownloadUtil;
-
-import java.io.File;
 
 /**
  * Created by HuibinWang on 2017/08/21.
@@ -31,6 +27,7 @@ public class AboutActivity extends AppCompatActivity {
     private TextView tvVersion;
     private TextView tvFunctionInfo;
     private TextView tvVersionCheck;
+    private TextView tvLog;
 
     ProgressDialog mProgressDialog;
     Handler mHandler = new Handler();
@@ -45,6 +42,7 @@ public class AboutActivity extends AppCompatActivity {
         tvVersion = (TextView) findViewById(R.id.version);
         tvFunctionInfo = (TextView) findViewById(R.id.function_info);
         tvVersionCheck = (TextView) findViewById(R.id.version_check);
+        tvLog = (TextView) findViewById(R.id.log);
 
         try {
             PackageManager pm = this.getPackageManager();
@@ -68,7 +66,6 @@ public class AboutActivity extends AppCompatActivity {
         tvVersionCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 showProgressDialog(R.string.loading2);
                 DownloadUtil.getLatestVersion(AboutActivity.this, new DownloadUtil.GetLatestVersionListener() {
                     @Override
@@ -81,9 +78,9 @@ public class AboutActivity extends AppCompatActivity {
                                     Toast.makeText(AboutActivity.this, R.string.version_latest, Toast.LENGTH_LONG).show();
                                 } else {
                                     new AlertDialog.Builder(AboutActivity.this)
-                                            .setTitle(R.string.apkdownloaddlg_title)
-                                            .setMessage(R.string.apkdownloaddlg_info)
-                                            .setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener(){
+                                            .setTitle(R.string.dlg_title)
+                                            .setMessage(R.string.dlg_info_apkdownload)
+                                            .setPositiveButton(R.string.dlg_ok, new DialogInterface.OnClickListener(){
                                                 @Override
                                                 public void onClick(DialogInterface dialogInterface, int i) {
                                                     Intent intent = new Intent();
@@ -119,7 +116,7 @@ public class AboutActivity extends AppCompatActivity {
 //                                                    });
                                                 }
                                             })
-                                            .setNegativeButton(R.string.dialog_cancel, null)
+                                            .setNegativeButton(R.string.dlg_cancel, null)
                                             .show();
                                 }
                                 dismissDialog();
@@ -138,6 +135,15 @@ public class AboutActivity extends AppCompatActivity {
                         });
                     }
                 });
+            }
+        });
+
+        tvLog.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AboutActivity.this, LogActivity.class);
+                startActivity(intent);
             }
         });
     }
