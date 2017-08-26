@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.baidu.mobstat.StatService;
 import com.qz.autohosts.util.Utils;
 
 /**
@@ -78,5 +79,19 @@ public class LogActivity extends AppCompatActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// 页面埋点
+		StatService.onPageStart(this, "LogActivity");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		// 配对页面埋点，与start的页面名称要一致
+		StatService.onPageEnd(this, "LogActivity");
 	}
 }

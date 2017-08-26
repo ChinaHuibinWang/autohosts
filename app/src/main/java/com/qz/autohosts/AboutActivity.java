@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.mobstat.StatService;
 import com.qz.autohosts.util.DownloadUtil;
 
 /**
@@ -162,5 +163,19 @@ public class AboutActivity extends AppCompatActivity {
             return;
         }
         mProgressDialog.dismiss();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 页面埋点
+        StatService.onPageStart(this, "AboutActivity");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // 配对页面埋点，与start的页面名称要一致
+        StatService.onPageEnd(this, "AboutActivity");
     }
 }

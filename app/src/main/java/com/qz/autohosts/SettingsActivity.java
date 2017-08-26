@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.baidu.mobstat.StatService;
 import com.qz.autohosts.util.Utils;
 
 /**
@@ -84,5 +85,19 @@ public class SettingsActivity extends AppCompatActivity {
 
 	private Context getContext() {
 		return this;
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// 页面埋点
+		StatService.onPageStart(this, "SettingsActivity");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		// 配对页面埋点，与start的页面名称要一致
+		StatService.onPageEnd(this, "SettingsActivity");
 	}
 }

@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.baidu.mobstat.StatService;
 import com.qz.autohosts.util.CloseUtil;
 
 import java.io.BufferedReader;
@@ -88,4 +89,17 @@ public class HostDetailActivity extends AppCompatActivity {
 		mProgressDialog.dismiss();
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// 页面埋点
+		StatService.onPageStart(this, "HostDetailActivity");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		// 配对页面埋点，与start的页面名称要一致
+		StatService.onPageEnd(this, "HostDetailActivity");
+	}
 }

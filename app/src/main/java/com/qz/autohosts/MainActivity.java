@@ -15,6 +15,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
+import com.baidu.mobstat.StatService;
 import com.qz.autohosts.util.CloseUtil;
 import com.qz.autohosts.util.DownloadUtil;
 import com.qz.autohosts.util.Utils;
@@ -49,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
 		readHostBtn = (Button) findViewById(R.id.read_host);
 		clearLogBtn = (Button) findViewById(R.id.log);
 		tipsView = (TextView) findViewById(R.id.tips);
+
+		// 启动百度push
+		PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY,
+				Utils.getMetaValue(MainActivity.this, "api_key"));
 
 		mProxyHostBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -297,5 +304,19 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// 页面埋点
+		StatService.onPageStart(this, "MainActivity");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		// 配对页面埋点，与start的页面名称要一致
+		StatService.onPageEnd(this, "MainActivity");
 	}
 }
